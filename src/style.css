@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #c40c0c;
+  }
+
+  .color--primary {
+    color: var(--color-primary);
+  }
+}
