@@ -1,18 +1,16 @@
 <script setup lang="ts">
 import Layout from "./components/Layout/Layout.vue";
 
-import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
 import { supabase } from "./lib/supabaseClient";
 
-const countries = ref([]);
-
-async function getCountries() {
+async function getUsers() {
   const data = await supabase.from("users").select();
   console.log(data);
 }
 
 onMounted(() => {
-  getCountries();
+  getUsers();
 });
 </script>
 
