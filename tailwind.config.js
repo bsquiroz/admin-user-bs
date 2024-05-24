@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: "class",
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx,vue}"],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx,vue}", "./src/lib/form/formkit.theme.ts"],
   theme: {
     extend: {},
   },
