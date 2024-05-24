@@ -1,11 +1,27 @@
 <script setup lang="ts">
 import { defineProps, onMounted } from "vue";
 import { useAdminStore } from "../../store/useAdminStore";
-import { RouterLink } from "vue-router";
+import { useRouter } from "vue-router";
 
 defineProps<{ title: string }>();
 
-const { users, getUsers } = useAdminStore();
+const router = useRouter();
+const { users, getUsers, getUser, updateUserState } = useAdminStore();
+
+const handleGetUser = async (userId: string) => {
+  const response = await getUser(userId);
+
+  if (!response) return;
+
+  router.push({ name: "form" });
+};
+
+const handleChangeState = async (userId: string) => {
+  const user = users.value?.find((user) => user.id === +userId);
+  const response = await updateUserState(user!);
+
+  if (!response) return;
+};
 
 onMounted(() => getUsers());
 </script>
@@ -41,6 +57,7 @@ onMounted(() => getUsers());
               }"
             ></span>
             <span
+              @click="handleChangeState(user.id.toString())"
               class="cursor-pointer"
               :class="{
                 ' hover:text-red-500': !user.state,
@@ -51,7 +68,7 @@ onMounted(() => getUsers());
           </p>
         </td>
         <td class="whitespace-nowrap p-3">
-          <RouterLink :to="{ name: 'form' }"> Edit </RouterLink>
+          <button @click="handleGetUser(user.id.toString())">Edit</button>
         </td>
       </tr>
     </tbody>
